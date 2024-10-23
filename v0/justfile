@@ -1,2 +1,4 @@
 build: 
     pros build
+upload: 
+    pros upload 
