@@ -23,10 +23,19 @@ void on_center_button() {
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
-	pros::lcd::initialize();
-	pros::lcd::set_text(1, "Hello PROS User!");
+//	pros::lcd::initialize();
+	//pros::lcd::set_text(1, "Hello PROS User!");
+std::cout << "\x1B[2J\x1B[H";
+	 std::cout << R"(
 
-	pros::lcd::register_btn1_cb(on_center_button);
+.dP"Y8    db       db    88  88 88 88     
+`Ybo."   dPYb     dPYb   88  88 88 88     
+o.`Y8b  dP__Yb   dP__Yb  888888 88 88  .o 
+8bodP' dP""""Yb dP""""Yb 88  88 88 88ood8 
+       
+)" << '\n';
+std::cout << "\033[1;33mMade by saahil (saahild.com) and ran in Pros\033[00m";
+	//pros::lcd::register_btn1_cb(on_center_button);
 }
 
 /**

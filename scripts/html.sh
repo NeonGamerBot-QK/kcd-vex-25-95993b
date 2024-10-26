@@ -5,8 +5,8 @@
 # List of files to convert (glob)
 FILES=(
   # "README.md"
-  "./project/src/*"
-  "./project/src/**/*"
+  "./v0/src/*"
+  "./v0/src/**/*"
   # "./dash/src/*"
   # "./dash/src/**/*"
 #   "./scripts/*"
@@ -34,7 +34,7 @@ cat <<EOF > $OUTPUT
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/themes/prism-coy.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/plugins/line-numbers/prism-line-numbers.min.css" />
 <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet'>
-
+   <link href="//prismjs.catppuccin.com/mocha.css" rel="stylesheet" />
   <style>
 @font-face {
     font-family: IosevkaComfy;
@@ -126,6 +126,7 @@ cat <<EOF >> $OUTPUT
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/components/prism-cpp.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/components/prism-bash.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/plugins/line-numbers/prism-line-numbers.min.js"></script>
-</body>
+
+  </body>
 </html>
 EOF
