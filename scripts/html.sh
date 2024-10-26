@@ -9,7 +9,7 @@ FILES=(
   "./v0/src/**/*"
   # "./dash/src/*"
   # "./dash/src/**/*"
-#   "./scripts/*"
+  #   "./scripts/*"
 )
 
 # Ext override map
@@ -23,7 +23,7 @@ EXT_OVERRIDES=(
 OUTPUT="index.html"
 
 # Header
-cat <<EOF > $OUTPUT
+cat << EOF > $OUTPUT
 <!DOCTYPE html>
 <html>
 <head>
@@ -104,7 +104,7 @@ for FILE in ${FILES[@]}; do
 
   # Append the title
   echo "<h1>$FILE</h1>" >> $OUTPUT
-  
+
   # Get the last git commit message and date
   LAST_COMMIT=$(git log -1 --pretty=format:"%s (%ad)" --date=short $FILE)
   echo "<p><strong>Last commit:</strong> $LAST_COMMIT</p>" >> $OUTPUT
@@ -119,7 +119,7 @@ for FILE in ${FILES[@]}; do
 done
 
 # Footer
-cat <<EOF >> $OUTPUT
+cat << EOF >> $OUTPUT
   <!-- PrismJS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/prism.min.js"></script> 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/components/prism-c.min.js"></script>
