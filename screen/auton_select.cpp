@@ -1,18 +1,19 @@
 // #include "../autonomous/auton.hpp"
 // #include "../config/config.hpp"
 #include "main.h"
+#include "lvgl/lvgl.h"
 #include "auton/auton.hpp"
-#include <iostream>
+// #include <iostream>
 #include <unistd.h>
 // #include "screen.hpp"
-
 // create the menu
-lv_obj_t *autonMenu = lv_ddlist_create(lv_scr_act(), NULL);
+
+lv_obj_t *autonMenu = lv_dropdown_create(lv_scr_act());
 lv_style_t style_list;
 
 // reset position button
-lv_obj_t *resetPositionButton = lv_btn_create(lv_scr_act(), NULL);
-lv_obj_t *resetPositionLabel = lv_label_create(resetPositionButton, NULL);
+lv_obj_t *resetPositionButton = lv_btn_create(lv_scr_act());
+lv_obj_t *resetPositionLabel = lv_label_create(resetPositionButton);
 
 // startAuton button 
 // lv_obj_t *startAutonButton = lv_btn_create(lv_scr_act(), NULL);
@@ -52,7 +53,7 @@ autonomous();
 void DautonSelectTask() {
   while (true) {
     // get the selected option
-    int selected = lv_ddlist_get_selected(autonMenu);
+    int selected = lv_dropdown_get_selected(autonMenu);
 
     // set the auton - corresponds to the enum's value
 
@@ -65,7 +66,7 @@ void DautonSelectTask() {
 // initailize the menu
 void DinitializeAutonSelect() {
   // set the options
-  lv_ddlist_set_options(autonMenu, "Red Side\nBlue side\nSkills\nNone");
+  lv_dropdown_set_options(autonMenu, "Red Side\nBlue side\nSkills\nNone");
   // set the button text
   lv_label_set_text(resetPositionLabel, "Reset Position");
   // lv_label_set_text(StartAutonLabel, "Start Auton.");
@@ -79,7 +80,7 @@ void DinitializeAutonSelect() {
 
   // set the size
   lv_obj_set_size(autonMenu, 200, 50);
-  lv_btn_set_fit(resetPositionButton, true, true);
+  // lv_btn_set_fit(resetPositionButton, true, true);
   // lv_btn_set_fit(resetTurretButton, true, true);
 
   // reduce the padding to 3 px
@@ -87,12 +88,13 @@ void DinitializeAutonSelect() {
   style_list.body.padding.hor = 3;
   style_list.body.padding.ver = 3;
   style_list.body.padding.inner = 3;
-  lv_ddlist_set_style(autonMenu, LV_DDLIST_STYLE_BG, &style_list);
+  lv_dropdown_set_style(autonMenu, lv_dropdown_STYLE_BG, &style_list);
   // lv_btn_set_style(resetPositionButton, LV_BTN_STYLE_REL, &style_list);
   // lv_btn_set_style(resetTurretButton, LV_BTN_STYLE_REL, &style_list);
 
   // on click
-  lv_btn_set_action(resetPositionButton, LV_BTN_ACTION_CLICK,
+  lv_obj_add_event_cb(resetPositionButton, resetPositionCallback, LV_BTN_ACTION_CLICK)
+  // lv_btn_set_action(resetPositionButton, LV_BTN_ACTION_CLICK,
                     resetPositionCallback);
 
   //  lv_btn_set_action(startAutonButton, LV_BTN_ACTION_CLICK,
