@@ -2,3 +2,5 @@ build:
     pros build
 upload: 
     pros upload 
+bd: 
+    pros build --debug --verbose

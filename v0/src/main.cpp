@@ -1,5 +1,6 @@
 #include "main.h"
-
+#include "config.hpp"
+#include "buttons/handleIntake.hpp"
 /**
  * A callback function for LLEMU's center button.
  *
@@ -88,8 +89,8 @@ void autonomous() {
  */
 void opcontrol() {
 	pros::Controller master(pros::E_CONTROLLER_MASTER);
-	pros::MotorGroup left_mg({2, 3});    // Creates a motor group with forwards ports 1 & 3 and reversed port 2
-	pros::MotorGroup right_mg({ -4, -5});  // Creates a motor group with forwards port 5 and reversed ports 4 & 6
+	pros::MotorGroup left_mg({LEFT_FRONT_PORT, LEFT_BACK_PORT});    // Creates a motor group with forwards ports 1 & 3 and reversed port 2
+	pros::MotorGroup right_mg({ RIGHT_FRONT_PORT, RIGHT_BACK_PORT});  // Creates a motor group with forwards port 5 and reversed ports 4 & 6
 	while (true) {
 		pros::lcd::print(0, "%d %d %d", (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,
 		                 (pros::lcd::read_buttons() & LCD_BTN_CENTER) >> 1,
@@ -100,6 +101,17 @@ void opcontrol() {
 		int turn = master.get_analog(ANALOG_RIGHT_X);  // Gets the turn left/right from right joystick
 		left_mg.move(dir - turn);                      // Sets left motor voltage
 		right_mg.move(dir + turn);                     // Sets right motor voltage
+		if(master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
+			handleIntake();
+		} else {
+			brakeIntake();
+		}
+		if(master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) {
+			reverseIntake();
+
+		} else {
+			brakeIntake();
+		}
 		pros::delay(20);                               // Run for 20 ms then update
 	}
 }
