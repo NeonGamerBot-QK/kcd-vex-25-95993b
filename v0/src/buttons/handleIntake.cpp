@@ -5,11 +5,11 @@
 pros::Motor intake(INTAKE_PORT);
 
 void handleIntake() {
-    intake.move(127) ;
+    intake.move(120) ;
 }
 void brakeIntake() {
     intake.brake();
 }
 void reverseIntake() {
-    intake.move(-127);
+    intake.move(-120);
 }

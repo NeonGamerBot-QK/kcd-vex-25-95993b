@@ -103,15 +103,13 @@ void opcontrol() {
 		right_mg.move(dir + turn);                     // Sets right motor voltage
 		if(master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
 			handleIntake();
-		} else {
-			brakeIntake();
-		}
+		} 
 		if(master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) {
 			reverseIntake();
-
-		} else {
+		} 
+		if(!master.get_digital(pros::E_CONTROLLER_DIGITAL_R1) && !master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
 			brakeIntake();
 		}
-		pros::delay(20);                               // Run for 20 ms then update
+		pros::delay(19);                               // Run for 20 ms then update
 	}
 }
