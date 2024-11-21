@@ -91,6 +91,7 @@ void opcontrol() {
 	pros::Controller master(pros::E_CONTROLLER_MASTER);
 	pros::MotorGroup left_mg({LEFT_FRONT_PORT, LEFT_BACK_PORT});    // Creates a motor group with forwards ports 1 & 3 and reversed port 2
 	pros::MotorGroup right_mg({ RIGHT_FRONT_PORT, RIGHT_BACK_PORT});  // Creates a motor group with forwards port 5 and reversed ports 4 & 6
+	pros::adi::Pneumatics  sensor('A', DIGITAL_SENSOR_PORT);
 	while (true) {
 		pros::lcd::print(0, "%d %d %d", (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,
 		                 (pros::lcd::read_buttons() & LCD_BTN_CENTER) >> 1,
@@ -109,6 +110,11 @@ void opcontrol() {
 		} 
 		if(!master.get_digital(pros::E_CONTROLLER_DIGITAL_R1) && !master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
 			brakeIntake();
+		}
+		// stay as a toggle
+		
+		if(master.get_digital(pros::E_CONTROLLER_DIGITAL_A)) {
+			sensor.toggle();
 		}
 		pros::delay(19);                               // Run for 20 ms then update
 	}

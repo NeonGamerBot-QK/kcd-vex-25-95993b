@@ -3,3 +3,4 @@
 #define RIGHT_BACK_PORT -3
 #define LEFT_FRONT_PORT 4 // port is negative because it is reversed
 #define LEFT_BACK_PORT 5 // ^^
+#define DIGITAL_SENSOR_PORT 1
