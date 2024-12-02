@@ -113,8 +113,10 @@ void opcontrol() {
 		}
 		// stay as a toggle
 		
-		if(master.get_digital(pros::E_CONTROLLER_DIGITAL_A)) {
-			sensor.toggle();
+		if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A)) {
+			sensor.set_value(true);
+		} else {
+			sensor.set_value(false);
 		}
 		pros::delay(19);                               // Run for 20 ms then update
 	}
