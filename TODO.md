@@ -1,6 +1,6 @@
 - [ ] add lv for screen process
 - [x] build drivetrain
 - [ ] journel
-- [x] test robot 
+- [x] test robot
 - [ ] correct journel into the correct format
 - [ ] Create auton.
