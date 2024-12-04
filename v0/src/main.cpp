@@ -101,8 +101,8 @@ void opcontrol() {
 		// Arcade control scheme
 		int dir = master.get_analog(ANALOG_LEFT_Y);    // Gets amount forward/backward from left joystick
 		int turn = master.get_analog(ANALOG_RIGHT_X);  // Gets the turn left/right from right joystick
-		left_mg.move(dir - turn);                      // Sets left motor voltage
-		right_mg.move(dir + turn);                     // Sets right motor voltage
+		left_mg.move(dir - -turn);                      // Sets left motor voltage
+		right_mg.move(dir + -turn);                     // Sets right motor voltage
 		if(master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
 			handleIntake();
 		} 
@@ -117,9 +117,9 @@ void opcontrol() {
 		} else {
 			intake2.brake();
 		}
+		
 		// stay as a toggle
 		// no
-
 		if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A)) {
 			sensor.set_value(true);
 		} else {
