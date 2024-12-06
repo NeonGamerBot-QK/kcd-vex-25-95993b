@@ -1,4 +1,5 @@
 #include "main.h"
+#include "auton/auton.hpp"
 #include "config.hpp"
 #include "buttons/handleIntake.hpp"
 /**
@@ -44,7 +45,9 @@ std::cout << "\033[1;33mMade by saahil (saahild.com) and ran in Pros\033[00m";
  * the VEX Competition Switch, following either autonomous or opcontrol. When
  * the robot is enabled, this task will exit.
  */
-void disabled() {}
+void disabled() {
+
+}
 
 /**
  * Runs after initialize(), and before autonomous when connected to the Field
@@ -72,6 +75,7 @@ void competition_initialize() {
  */
 void autonomous() {
 	// TODO: auton
+	runAuton();
 }
 
 /**
@@ -97,12 +101,14 @@ void opcontrol() {
 		pros::lcd::print(0, "%d %d %d", (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,
 		                 (pros::lcd::read_buttons() & LCD_BTN_CENTER) >> 1,
 		                 (pros::lcd::read_buttons() & LCD_BTN_RIGHT) >> 0);  // Prints status of the emulated screen LCDs
-
+		// print the dir and turn
 		// Arcade control scheme
 		int dir = master.get_analog(ANALOG_LEFT_Y);    // Gets amount forward/backward from left joystick
 		int turn = master.get_analog(ANALOG_RIGHT_X);  // Gets the turn left/right from right joystick
 		left_mg.move(dir - -turn);                      // Sets left motor voltage
 		right_mg.move(dir + -turn);                     // Sets right motor voltage
+		std::cout << dir - -turn << '\n';
+		std::cout << dir + -turn << '\n';
 		if(master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
 			handleIntake();
 		} 
@@ -113,7 +119,7 @@ void opcontrol() {
 			brakeIntake();
 		}
 		if(master.get_digital(pros::E_CONTROLLER_DIGITAL_B)) {
-			intake2.move(120);
+			intake2.move(127);
 		} else {
 			intake2.brake();
 		}
@@ -121,10 +127,8 @@ void opcontrol() {
 		// stay as a toggle
 		// no
 		if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A)) {
-			sensor.set_value(true);
-		} else {
-			sensor.set_value(false);
+			sensor.toggle();
 		}
-		pros::delay(19);                               // Run for 20 ms then update
+		pros::delay(19);                               // Run for 19 ms then update
 	}
 }
