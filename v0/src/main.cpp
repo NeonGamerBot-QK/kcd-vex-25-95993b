@@ -38,6 +38,8 @@ o.`Y8b  dP__Yb   dP__Yb  888888 88 88  .o
 )" << '\n';
 std::cout << "\033[1;33mMade by saahil (saahild.com) and ran in Pros\033[00m";
 	//pros::lcd::register_btn1_cb(on_center_button);
+pros::adi::Pneumatics  sensor('A', DIGITAL_SENSOR_PORT);
+sensor.set_value(false);
 }
 
 /**
