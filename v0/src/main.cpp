@@ -25,8 +25,8 @@ void on_center_button() {
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
-//	pros::lcd::initialize();
-	//pros::lcd::set_text(1, "Hello PROS User!");
+	pros::lcd::initialize();
+	pros::lcd::set_text(1, "Hello PROS User!");
 std::cout << "\x1B[2J\x1B[H";
 	 std::cout << R"(
 
@@ -103,8 +103,16 @@ void opcontrol() {
 		pros::lcd::print(0, "%d %d %d", (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,
 		                 (pros::lcd::read_buttons() & LCD_BTN_CENTER) >> 1,
 		                 (pros::lcd::read_buttons() & LCD_BTN_RIGHT) >> 0);  // Prints status of the emulated screen LCDs
+		
 		// print the dir and turn
 		// Arcade control scheme
+		if(pros::lcd::read_buttons() & LCD_BTN_LEFT) {
+		setAutonMode(1);
+		} else if(pros::lcd::read_buttons() & LCD_BTN_CENTER) {
+		setAutonMode(3);
+		} else if(pros::lcd::read_buttons() & LCD_BTN_RIGHT) {
+		setAutonMode(2);
+		} 
 		int dir = master.get_analog(ANALOG_LEFT_Y);    // Gets amount forward/backward from left joystick
 		int turn = master.get_analog(ANALOG_RIGHT_X);  // Gets the turn left/right from right joystick
 		left_mg.move(dir - -turn);                      // Sets left motor voltage
@@ -125,7 +133,6 @@ void opcontrol() {
 		} else {
 			intake2.brake();
 		}
-		
 		// stay as a toggle
 		// no
 		if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A)) {
