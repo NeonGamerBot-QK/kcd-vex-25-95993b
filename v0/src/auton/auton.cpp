@@ -7,6 +7,14 @@ int amode = 0;
 	pros::MotorGroup right_mg({ LEFT_FRONT_PORT, LEFT_BACK_PORT });  // Creates a motor group with forwards port 5 and reversed ports 4 & 6
 	pros::adi::Pneumatics  sensor('A', DIGITAL_SENSOR_PORT);
 	pros::Motor intake2(8);
+	void resetAuton() {
+	intake2.brake();
+	left_mg.brake();
+	right_mg.brake();
+	brakeIntake();
+}
+
+
 void runAuton() {
 	switch(amode) {
 		case 1:
@@ -24,15 +32,15 @@ void runAuton() {
 	break;
 case 3:
 	// TODO: Auton
+	left_mg.move(100);
+	right_mg.move(100);
+	pros::delay(1000);
 	break;
 	}
+
+	resetAuton();
 }
-void resetAuton() {
-	intake2.brake();
-	left_mg.brake();
-	right_mg.brake();
-	brakeIntake();
-}
+
 
 void setAutonMode(int mode) {
 	amode = mode;
