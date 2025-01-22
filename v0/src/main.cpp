@@ -18,6 +18,7 @@ void on_center_button() {
 	}
 }
 bool in_competition = false;
+bool is_disabled = false;
 /**
  * Runs initialization code. This occurs as soon as the program is started.
  *
@@ -25,6 +26,7 @@ bool in_competition = false;
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
+	is_disabled = false;
 	pros::lcd::initialize();
 	pros::lcd::set_text(1, "Hello PROS User!");
 std::cout << "\x1B[2J\x1B[H";
@@ -49,7 +51,7 @@ sensor.set_value(false);
  * the robot is enabled, this task will exit.
  */
 void disabled() {
-
+	is_disabled = true;
 }
 
 /**
@@ -148,7 +150,6 @@ void opcontrol() {
 		}
 	}
 		// stay as a toggle
-		// no
 		if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A)) {
 			sensor.toggle();
 		}

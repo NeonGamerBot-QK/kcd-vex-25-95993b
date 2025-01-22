@@ -42,20 +42,20 @@ void runAuton() {
 	std::cout << "#debug open air" << std::endl;
 	sensor.set_value(true);
 // TODO: test the rest
-// 	// move back 
-// 	right_mg.move(-100);
-// 	left_mg.move(-100);
-// 	pros::delay(150);
-// 		left_mg.brake();
-// 	right_mg.brake();
-// 	sensor.set_value(false);
-// // now lets take in the nearby thingy
-// 	right_mg.move(127);
-// 	left_mg.move(127);
-// 	intake2.move(127);
-// 	handleIntake();
-// 	pros::delay(1000);
-	// resetAuton();
+	// move back 
+	right_mg.move(-100);
+	left_mg.move(-100);
+	pros::delay(50);
+		left_mg.brake();
+	right_mg.brake();
+	sensor.set_value(false);
+// now lets take in the nearby thingy
+	intake2.move(127);
+	handleIntake();
+	right_mg.move(127);
+	left_mg.move(127);
+	pros::delay(500);
+	resetAuton();
 		break;
 	case 2:
 	// TODO: Blue side
