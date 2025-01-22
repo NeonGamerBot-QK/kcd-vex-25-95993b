@@ -4,3 +4,5 @@ upload:
     pros upload 
 bd: 
     pros build --debug --verbose
+bu:
+    just build && just upload

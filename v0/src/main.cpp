@@ -17,7 +17,7 @@ void on_center_button() {
 		pros::lcd::clear_line(2);
 	}
 }
-
+bool in_competition = false;
 /**
  * Runs initialization code. This occurs as soon as the program is started.
  *
@@ -37,6 +37,7 @@ o.`Y8b  dP__Yb   dP__Yb  888888 88 88  .o
        
 )" << '\n';
 std::cout << "\033[1;33mMade by saahil (saahild.com) and ran in Pros\033[00m";
+std::cout << "\n";
 	//pros::lcd::register_btn1_cb(on_center_button);
 pros::adi::Pneumatics  sensor('A', DIGITAL_SENSOR_PORT);
 sensor.set_value(false);
@@ -62,6 +63,7 @@ void disabled() {
  */
 void competition_initialize() {
 	// d
+	in_competition = true;
 }
 
 /**
@@ -117,8 +119,8 @@ void opcontrol() {
 		int turn = master.get_analog(ANALOG_RIGHT_X);  // Gets the turn left/right from right joystick
 		left_mg.move(dir - -turn);                      // Sets left motor voltage
 		right_mg.move(dir + -turn);                     // Sets right motor voltage
-		std::cout << dir - -turn << '\n';
-		std::cout << dir + -turn << '\n';
+		// std::cout << dir - -turn << '\n';
+		// std::cout << dir + -turn << '\n';
 		if(master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
 			handleIntake();
 		} 
@@ -133,6 +135,18 @@ void opcontrol() {
 		} else {
 			intake2.brake();
 		}
+		// test buttons
+	if(!in_competition) {
+		if(master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)) {
+			left_mg.move(127);
+			right_mg.move(127);
+		}
+		if(master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)) {
+			// vibrate controller
+			// master.vibrate(100);
+			runAuton();
+		}
+	}
 		// stay as a toggle
 		// no
 		if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A)) {
