@@ -103,10 +103,9 @@ void opcontrol() {
 	pros::MotorGroup right_mg({ LEFT_FRONT_PORT, LEFT_BACK_PORT });  // Creates a motor group with forwards port 5 and reversed ports 4 & 6
 	pros::adi::Pneumatics  sensor('A', DIGITAL_SENSOR_PORT);
 	pros::Motor intake2(8);
+	
 	while (true) {
-		pros::lcd::print(0, "%d %d %d", (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,
-		                 (pros::lcd::read_buttons() & LCD_BTN_CENTER) >> 1,
-		                 (pros::lcd::read_buttons() & LCD_BTN_RIGHT) >> 0);  // Prints status of the emulated screen LCDs
+		pros::lcd::print(0, "Auton mode: %d",  getAutonMode());  // Prints status of the emulated screen LCDs
 		
 		// print the dir and turn
 		// Arcade control scheme
@@ -140,8 +139,8 @@ void opcontrol() {
 		// test buttons
 	if(!in_competition) {
 		if(master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)) {
-			left_mg.move(127);
-			right_mg.move(127);
+		right_mg.move_relative(100000000, 100000000);
+	left_mg.move_relative(-100000000, -100000000);
 		}
 		if(master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)) {
 			// vibrate controller

@@ -1,3 +1,4 @@
+int getAutonMode();
 
 void runAuton();
 

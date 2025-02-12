@@ -5,7 +5,7 @@
 pros::Motor intake(INTAKE_PORT);
 
 void handleIntake() {
-    intake.move(127) ;
+    intake.move(110) ;
 }
 void brakeIntake() {
     intake.brake();
